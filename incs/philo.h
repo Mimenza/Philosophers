@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:51:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/11 15:16:10 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:40:28 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdlib.h>
 # include <sys/time.h>
 # include <unistd.h>
+# include <stdlib.h>
 
 
 typedef struct s_philo
@@ -51,10 +52,11 @@ int		ft_check_arg(int argc, char **argv);
 
 //init
 t_data	*ft_init_data(char *philo_nbr, char *die_time, char *sleep_time, char *eat_time, char *eat_nbr);
-void	ft_init_philos(t_philo **philo, int id);
+void	ft_create_philos(t_philo **philo, int id);
+void	ft_init_philos(t_data *data, t_philo **philo);
 
 //utils
 t_philo	*ft_last_node(t_philo *philo);
 void	ft_print_data(t_data data);
-
+void	ft_print_philos(t_philo *philo, t_data *data);
 #endif

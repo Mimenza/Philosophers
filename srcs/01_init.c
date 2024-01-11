@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 15:33:56 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/11 15:16:48 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:41:45 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,12 @@ t_data	*ft_init_data(char *philo_nbr, char *die_time, char *sleep_time, char *ea
 	return (data);
 }
 
-void	ft_init_philos(t_philo **philo, int id)
+void	ft_create_philos(t_philo **philo, int id)
 {
 	t_philo		*new;
 	t_philo		*last;
-	pthread_t	thread;
+	//pthread_t	thread;
 	
-
 	if (philo == NULL)
 		return ;
 	new = malloc(sizeof(t_philo));
@@ -54,10 +53,37 @@ void	ft_init_philos(t_philo **philo, int id)
 		last->next = new;
 		new->prev = last;
 	}
-	//fill al the philos data;
 	new->dead = 0;
 	new->eating = 0;
 	new->sleeping = 0;
 	new->thinking = 0;
 	new->id = id;
+}
+
+void	ft_init_philos(t_data *data, t_philo **philo)
+{
+	int	id;
+	t_philo *first_p;
+	t_philo *last_p;
+
+	first_p = NULL;
+	last_p = NULL;
+	id = 1;
+	while (id <= data->p_nbr)
+	{
+		ft_create_philos(philo, id);
+		if (first_p == NULL)
+			first_p = (*philo);
+		id++;
+	}
+	if (first_p != NULL)
+	{
+		last_p = ft_last_node(*philo);
+		last_p->next = first_p;
+		first_p->prev = last_p;
+		data->first = first_p;
+		data->last = last_p;
+		ft_printf("first filo = %i \n", data->first->id);
+		ft_printf("last filo = %i \n", data->last->id);
+	}
 }
