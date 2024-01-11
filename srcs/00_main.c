@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:34:23 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/09 12:58:17 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/01/11 15:17:35 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,16 @@ int	ft_check_arg(int argc, char **argv)
 
 int	main(int argc, char **argv)
 {
+	t_philo	*philo;
+	t_data	*data;
+
 	if (argc != 5 && argc != 6)
 		return (ft_printf("Wrong number of arguments\n"), 0);
 	if (ft_check_arg(argc, argv) == 1)
 		return (0);
 	ft_printf("All gud\n");
+	//init all the structs
+	data = ft_init_data(argv[1], argv[2], argv[3], argv[4], argv[5]);
+	ft_print_data(*data);
 	return (0);
 }
