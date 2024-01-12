@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:34:23 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/11 16:44:20 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/01/12 12:50:41 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_isnbr(char *str)
 //check all the args
 int	ft_check_arg(int argc, char **argv)
 {
-	if (ft_isnbr(argv[1]) == 1)
+	if (ft_isnbr(argv[1]) == 1 || ft_atoi(argv[1]) == 1)
 		return (ft_printf("Error [number_of_philosophers] argument\n"), 1);
 	if (ft_isnbr(argv[2]) == 1)
 		return (ft_printf("Error [time_to_die] argument\n"), 1);
@@ -46,17 +46,22 @@ int	ft_check_arg(int argc, char **argv)
 
 int	main(int argc, char **argv)
 {
-	t_philo	*philo;
-	t_data	*data;
-
+	t_philo			*philo;
+	t_data			*data;
+	
 	if (argc != 5 && argc != 6)
 		return (ft_printf("Wrong number of arguments\n"), 0);
 	if (ft_check_arg(argc, argv) == 1)
 		return (0);
-	//init all the structs
-	data = ft_init_data(argv[1], argv[2], argv[3], argv[4], argv[5]);
-	ft_init_philos(data, &philo);
-	ft_print_data(*data);
+	ft_init_program(&data, &philo, argv);
+
+	ft_print_data(data);
+	//init the forks
 	ft_print_philos(philo, data);
+
+	//init the threads
+		//create a thread for the monitor
+		//create a thread for each philo
+	//destroy the mutex
 	return (0);
 }

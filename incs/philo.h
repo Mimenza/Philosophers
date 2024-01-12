@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:51:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/11 16:40:28 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/01/12 12:52:32 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@
 # include <unistd.h>
 # include <stdlib.h>
 
+typedef struct s_fork
+{
+	int				id;
+	int				free;
+}					t_fork;
 
 typedef struct s_philo
 {
@@ -31,6 +36,8 @@ typedef struct s_philo
 	int				sleeping;
 	int				thinking;
 	int				dead;
+	struct s_fork	*right_fork;
+	struct s_fork	*left_fork;
 	struct s_philo	*prev;
 	struct s_philo	*next;
 }					t_philo;
@@ -44,6 +51,10 @@ typedef struct s_data
 	int				sleep_time;
 	int				eat_time;
 	int				eat_nbr;
+	int				dead_flag;
+	pthread_mutex_t	dead_lock;
+	pthread_mutex_t	meal_lock;
+	pthread_mutex_t	write_lock;
 }					t_data;
 
 //main
@@ -51,12 +62,13 @@ int		ft_isnbr(char *str);
 int		ft_check_arg(int argc, char **argv);
 
 //init
-t_data	*ft_init_data(char *philo_nbr, char *die_time, char *sleep_time, char *eat_time, char *eat_nbr);
-void	ft_create_philos(t_philo **philo, int id);
+void	ft_init_data(t_data **data, char *philo_nbr, char *die_time, char *sleep_time, char *eat_time, char *eat_nbr);
+void	ft_create_philos(t_philo **philo, int id, t_data *data);
 void	ft_init_philos(t_data *data, t_philo **philo);
 
 //utils
 t_philo	*ft_last_node(t_philo *philo);
-void	ft_print_data(t_data data);
+void	ft_print_data(t_data *data);
 void	ft_print_philos(t_philo *philo, t_data *data);
+void	ft_init_program(t_data **data, t_philo **philo, char **argv);
 #endif
