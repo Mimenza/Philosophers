@@ -5,8 +5,7 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/10 15:33:56 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/12 13:21:49 by emimenza         ###   ########.fr       */
+/*   Created: 2024/01/10 15:33:56 by emimenza          #+#    #+#             *//*   Updated: 2024/01/12 18:51:50 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +40,9 @@ void	ft_create_philos(t_philo **philo, int id, t_data *data)
 	t_philo			*new;
 	t_philo			*last;
 	t_fork			*fork;
-	//pthread_t		thread;
 	
-	if (philo == NULL)
-		return ;
 	new = malloc(sizeof(t_philo));
+
 	if (new == NULL)
 		return ;
 	if (*philo == NULL)
@@ -60,24 +57,12 @@ void	ft_create_philos(t_philo **philo, int id, t_data *data)
 		new->prev = last;
 	}
 
-	//creating the philo fork
-	fork = malloc(sizeof(t_fork));
-	fork->free = 1;
-	fork->id = id;
-	
-	//creating the philo
+	ft_init_forks(&fork, id, new, last);
 	new->dead = 0;
 	new->eating = 0;
 	new->sleeping = 0;
 	new->thinking = 0;
 	new->id = id;
-
-	//linking the forks to the philos
-	if (id == 1)
-		new->left_fork = NULL;
-	else
-		new->left_fork = last->right_fork;
-	new->right_fork = fork;
 }
 
 void	ft_init_philos(t_data *data, t_philo **philo)
@@ -108,20 +93,35 @@ void	ft_init_philos(t_data *data, t_philo **philo)
 	}
 }
 
+void	ft_init_forks(t_fork **fork, int id, t_philo *new, t_philo *last)
+{
+	pthread_mutex_t	fork_lock;
+
+	(*fork) = malloc(sizeof(t_fork));
+	if ((*fork) == NULL)
+		return;
+	(*fork)->free = 1;
+	(*fork)->id = id;
+	(*fork)->fork_mutex = fork_lock;
+
+	// init the mutex for the fork
+	pthread_mutex_init(&(*fork)->fork_mutex, NULL);
+
+	//linking the forks to the philos
+	if (id == 1)
+		new->left_fork = NULL;
+	else
+		new->left_fork = last->right_fork;
+	new->right_fork = (*fork);
+}
+
 void	ft_init_program(t_data **data, t_philo **philo, char **argv)
 {
 	ft_init_data(data, argv[1], argv[2], argv[3], argv[4], argv[5]);
-	ft_printf("data init\n");
 	ft_init_philos(*data, philo);
-	ft_printf("philo init\n");
 	
 	// init the mutexes
 	pthread_mutex_init(&(*data)->dead_lock, NULL);	//lock to protect the data while checking if any philo died
 	pthread_mutex_init(&(*data)->meal_lock, NULL);	//lock to proyect the data while checking if the philo is dead (dont let that philo eat)
 	pthread_mutex_init(&(*data)->write_lock, NULL);	//lock to protect the data while writing data on console
 }
-
-// void	ft_init_forks(t_data *data)
-// {
-	
-// }

@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:51:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/12 12:52:32 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/01/12 18:58:14 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_fork
 {
 	int				id;
 	int				free;
+	pthread_mutex_t fork_mutex; //Mutex to protect each fork
 }					t_fork;
 
 typedef struct s_philo
@@ -65,6 +66,7 @@ int		ft_check_arg(int argc, char **argv);
 void	ft_init_data(t_data **data, char *philo_nbr, char *die_time, char *sleep_time, char *eat_time, char *eat_nbr);
 void	ft_create_philos(t_philo **philo, int id, t_data *data);
 void	ft_init_philos(t_data *data, t_philo **philo);
+void	ft_init_forks(t_fork **fork, int id, t_philo *new, t_philo *last);
 
 //utils
 t_philo	*ft_last_node(t_philo *philo);
