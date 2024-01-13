@@ -6,7 +6,7 @@
 #    By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/09 11:51:45 by emimenza          #+#    #+#              #
-#    Updated: 2024/01/11 15:10:12 by emimenza         ###   ########.fr        #
+#    Updated: 2024/01/13 13:24:12 by emimenza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ CCFLAGS		=	-Wall -Wextra -Werror
 NAME		=	philo
 
 #Ficheros
-SRC_FILES	=	00_main 01_init 02_utils
+SRC_FILES	=	00_main 01_init 02_utils 03_thread 04_actions 05_monitor
 SRC			=	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ			=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 LIBFT		=	libs/Libft

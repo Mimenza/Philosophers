@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:34:23 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/12 19:01:57 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/01/13 13:48:57 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,7 @@ int	main(int argc, char **argv)
 	//ft_print_data(data);
 	//ft_print_philos(philo, data);
 
-	//init the threads
-		//create a thread for the monitor
-		//create a thread for each philo
+	ft_init_thread(data);
 	//destroy the mutex
 	return (0);
 }

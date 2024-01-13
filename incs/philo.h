@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:51:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/12 18:58:14 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/01/13 14:16:30 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,24 @@
 
 typedef struct s_fork
 {
-	int				id;
+	int				id;			//id of the fork
 	int				free;
 	pthread_mutex_t fork_mutex; //Mutex to protect each fork
 }					t_fork;
 
 typedef struct s_philo
 {
-	int				id;
-	pthread_t		thread;
-	int				eating;
-	int				sleeping;
-	int				thinking;
-	int				dead;
-	struct s_fork	*right_fork;
-	struct s_fork	*left_fork;
-	struct s_philo	*prev;
-	struct s_philo	*next;
+	int				id;			//id of the philo
+	pthread_t		thread;		//thread of the philo
+	int				eating;		//id if is eating
+	int				sleeping;	//id if is sleeping
+	int				thinking;	//id if is thinking
+	int				dead;		//id if is dead
+	struct s_fork	*right_fork;//right fork
+	struct s_fork	*left_fork;	//left fork
+	struct s_philo	*prev;		//pointer to the prev philo
+	struct s_philo	*next;		//pointer to the next philo
+	struct s_data	*data;		//pointer to the data struct
 }					t_philo;
 
 typedef struct s_data
@@ -73,4 +74,14 @@ t_philo	*ft_last_node(t_philo *philo);
 void	ft_print_data(t_data *data);
 void	ft_print_philos(t_philo *philo, t_data *data);
 void	ft_init_program(t_data **data, t_philo **philo, char **argv);
+
+//thread
+void    ft_init_thread(t_data *data);
+void    *ft_philo_routine(void *pointer);
+
+//monitor
+void    *ft_monitor_routine(void *pointer);
+
+//actions
+
 #endif

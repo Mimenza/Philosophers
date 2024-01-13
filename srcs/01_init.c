@@ -5,7 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/10 15:33:56 by emimenza          #+#    #+#             *//*   Updated: 2024/01/12 18:51:50 by emimenza         ###   ########.fr       */
+/*   Created: 2024/01/10 15:33:56 by emimenza          #+#    #+#             */
+/*   Updated: 2024/01/13 14:07:50 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +33,8 @@ void	ft_init_data(t_data **data, char *philo_nbr, char *die_time, char *sleep_ti
 	(*data)->meal_lock = meal_lock;
 	(*data)->write_lock = write_lock;
 	(*data)->dead_flag = 0;
+
+	pthread_mutex_init(&(*data)->write_lock, NULL);
 	return ;
 }
 
@@ -40,9 +43,8 @@ void	ft_create_philos(t_philo **philo, int id, t_data *data)
 	t_philo			*new;
 	t_philo			*last;
 	t_fork			*fork;
-	
-	new = malloc(sizeof(t_philo));
 
+	new = malloc(sizeof(t_philo));
 	if (new == NULL)
 		return ;
 	if (*philo == NULL)
@@ -56,13 +58,13 @@ void	ft_create_philos(t_philo **philo, int id, t_data *data)
 		last->next = new;
 		new->prev = last;
 	}
-
 	ft_init_forks(&fork, id, new, last);
 	new->dead = 0;
 	new->eating = 0;
 	new->sleeping = 0;
 	new->thinking = 0;
 	new->id = id;
+	new->data = data;
 }
 
 void	ft_init_philos(t_data *data, t_philo **philo)
