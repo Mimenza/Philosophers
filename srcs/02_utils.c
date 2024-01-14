@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 14:13:02 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/12 19:09:34 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/01/14 00:59:37 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,11 @@ void	ft_print_philos(t_philo *philo, t_data *data)
 	ft_printf("left fork id %i\n", philo->left_fork->id);
 	ft_printf("right fork id %i\n", philo->right_fork->id);
 	ft_printf("-----\n");
+}
+
+void	ft_print_msg(char *str, int id, t_philo *philo)
+{
+	pthread_mutex_lock(&philo->data->write_lock);
+    ft_printf("the philo %i %s\n", id, str);
+    pthread_mutex_unlock(&philo->data->write_lock);
 }

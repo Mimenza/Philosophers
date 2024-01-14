@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 19:02:34 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/13 14:22:08 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/01/14 01:19:44 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,28 @@ void    ft_init_thread(t_data *data)
 void    *ft_philo_routine(void *pointer)
 {
     t_philo *philo;
-
+    
     philo = (t_philo *)pointer;
+
     pthread_mutex_lock(&philo->data->write_lock);
-    ft_printf("id = %d\n", philo->id);
+    ft_printf("philo thread created id %i\n", philo->id);
     pthread_mutex_unlock(&philo->data->write_lock);
+    
+    while (ft_philo_dead(philo) == 0)
+    {
+        ft_eat(philo);
+        ft_sleep(philo);
+        ft_think(philo);
+    }
+
+    return (philo);
+}
+
+int     ft_philo_dead(t_philo *philo)
+{
+    
+    if (philo->dead == 1)
+        return (1);
+    return (0);
 }
 //checks if the philo is dead

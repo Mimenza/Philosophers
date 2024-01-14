@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:51:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/13 14:16:30 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/01/14 00:50:46 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,18 @@ t_philo	*ft_last_node(t_philo *philo);
 void	ft_print_data(t_data *data);
 void	ft_print_philos(t_philo *philo, t_data *data);
 void	ft_init_program(t_data **data, t_philo **philo, char **argv);
+void	ft_print_msg(char *str, int id, t_philo *philo);
 
 //thread
 void    ft_init_thread(t_data *data);
 void    *ft_philo_routine(void *pointer);
+int     ft_philo_dead(t_philo *philo);
 
 //monitor
 void    *ft_monitor_routine(void *pointer);
 
 //actions
-
+void    ft_think(t_philo *philo);
+void    ft_sleep(t_philo *philo);
+void    ft_eat(t_philo *philo);
 #endif
