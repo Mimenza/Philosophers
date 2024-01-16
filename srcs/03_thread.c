@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 19:02:34 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/14 01:19:44 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/01/16 19:13:01 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void    ft_init_thread(t_data *data)
     }
     
 }
+
 //create the philos routine
 void    *ft_philo_routine(void *pointer)
 {
@@ -75,7 +76,6 @@ void    *ft_philo_routine(void *pointer)
 
 int     ft_philo_dead(t_philo *philo)
 {
-    
     if (philo->dead == 1)
         return (1);
     return (0);

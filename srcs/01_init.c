@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 15:33:56 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/13 14:07:50 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/01/16 19:05:12 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,9 @@ void	ft_create_philos(t_philo **philo, int id, t_data *data)
 	new->sleeping = 0;
 	new->thinking = 0;
 	new->id = id;
+	new->times_eat = 0;
 	new->data = data;
+	new->last_meal = get_current_time();
 }
 
 void	ft_init_philos(t_data *data, t_philo **philo)

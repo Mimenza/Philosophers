@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:51:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/14 00:50:46 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/01/16 19:00:55 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,15 @@ typedef struct s_philo
 	int				sleeping;	//id if is sleeping
 	int				thinking;	//id if is thinking
 	int				dead;		//id if is dead
+	int				times_eat;
 	struct s_fork	*right_fork;//right fork
 	struct s_fork	*left_fork;	//left fork
 	struct s_philo	*prev;		//pointer to the prev philo
 	struct s_philo	*next;		//pointer to the next philo
 	struct s_data	*data;		//pointer to the data struct
+	pthread_mutex_t	meal_lock;
+	pthread_mutex_t	dead_lock;
+	size_t			last_meal;
 }					t_philo;
 
 typedef struct s_data
@@ -72,9 +76,11 @@ void	ft_init_forks(t_fork **fork, int id, t_philo *new, t_philo *last);
 //utils
 t_philo	*ft_last_node(t_philo *philo);
 void	ft_print_data(t_data *data);
-void	ft_print_philos(t_philo *philo, t_data *data);
+void	ft_print_philos(t_data *data);
 void	ft_init_program(t_data **data, t_philo **philo, char **argv);
 void	ft_print_msg(char *str, int id, t_philo *philo);
+int		ft_usleep(size_t milliseconds);
+size_t	get_current_time(void);
 
 //thread
 void    ft_init_thread(t_data *data);
@@ -83,6 +89,9 @@ int     ft_philo_dead(t_philo *philo);
 
 //monitor
 void    *ft_monitor_routine(void *pointer);
+int     ft_any_philo_dead(t_data *data);
+int     ft_check_all_ate(t_data *data);
+int		ft_philo_starved(t_philo *philo, int die_time);
 
 //actions
 void    ft_think(t_philo *philo);

@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:34:23 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/13 13:48:57 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/01/16 18:55:47 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ int	main(int argc, char **argv)
 	if (ft_check_arg(argc, argv) == 1)
 		return (0);
 	ft_init_program(&data, &philo, argv);
-	//ft_print_data(data);
-	//ft_print_philos(philo, data);
+	ft_print_data(data);
+	//ft_print_philos(data);
 
 	ft_init_thread(data);
 	//destroy the mutex
