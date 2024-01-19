@@ -25,7 +25,6 @@
 typedef struct s_fork
 {
 	int				id;			//id of the fork
-	int				free;
 	pthread_mutex_t fork_mutex; //Mutex to protect each fork
 }					t_fork;
 
@@ -43,24 +42,24 @@ typedef struct s_philo
 	struct s_philo	*prev;		//pointer to the prev philo
 	struct s_philo	*next;		//pointer to the next philo
 	struct s_data	*data;		//pointer to the data struct
-	pthread_mutex_t	meal_lock;
-	pthread_mutex_t	dead_lock;
-	size_t			last_meal;
+	pthread_mutex_t	meal_lock;	//mutex to lock the eating of a philo
+	pthread_mutex_t	dead_lock;	//mutex to lock the dead of a philo
+	size_t			last_meal;	//saves the last meal of a philo
 }					t_philo;
 
 typedef struct s_data
 {
-	struct s_philo	*first;
-	struct s_philo	*last;
-	int				p_nbr;
-	int				die_time;
-	int				sleep_time;
-	int				eat_time;
-	int				eat_nbr;
-	int				dead_flag;
-	pthread_mutex_t	dead_lock;
-	pthread_mutex_t	meal_lock;
-	pthread_mutex_t	write_lock;
+	struct s_philo	*first;		//pointer to the first philo
+	struct s_philo	*last;		//pointer to the last philo
+	int				p_nbr;		//number of philos
+	int				die_time;	//the time a philo has before dying
+	int				sleep_time;	//the time a philo has to sleep
+	int				eat_time;	//the time a philo has to eat
+	int				eat_nbr;	//the times a philo need to eat
+	int				dead_flag;	//flag to save the state if any philo died
+	pthread_mutex_t	dead_lock;	//mutex to lock the dead flag of data
+	//pthread_mutex_t	meal_lock;
+	pthread_mutex_t	write_lock;	//mutex to lock the write
 }					t_data;
 
 //main
@@ -81,6 +80,7 @@ void	ft_init_program(t_data **data, t_philo **philo, char **argv);
 void	ft_print_msg(char *str, int id, t_philo *philo);
 int		ft_usleep(size_t milliseconds);
 size_t	get_current_time(void);
+void	ft_destroy_mutex(t_data *data);
 
 //thread
 void    ft_init_thread(t_data *data);

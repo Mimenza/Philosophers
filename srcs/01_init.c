@@ -30,7 +30,7 @@ void	ft_init_data(t_data **data, char *philo_nbr, char *die_time, char *sleep_ti
 	else
 		(*data)->eat_nbr = 0;
 	(*data)->dead_lock = dead_lock;
-	(*data)->meal_lock = meal_lock;
+	//(*data)->meal_lock = meal_lock;
 	(*data)->write_lock = write_lock;
 	(*data)->dead_flag = 0;
 
@@ -104,7 +104,6 @@ void	ft_init_forks(t_fork **fork, int id, t_philo *new, t_philo *last)
 	(*fork) = malloc(sizeof(t_fork));
 	if ((*fork) == NULL)
 		return;
-	(*fork)->free = 1;
 	(*fork)->id = id;
 	(*fork)->fork_mutex = fork_lock;
 
@@ -126,6 +125,6 @@ void	ft_init_program(t_data **data, t_philo **philo, char **argv)
 	
 	// init the mutexes
 	pthread_mutex_init(&(*data)->dead_lock, NULL);	//lock to protect the data while checking if any philo died
-	pthread_mutex_init(&(*data)->meal_lock, NULL);	//lock to proyect the data while checking if the philo is dead (dont let that philo eat)
+	//pthread_mutex_init(&(*data)->meal_lock, NULL);	//lock to proyect the data while checking if the philo is dead (dont let that philo eat)
 	pthread_mutex_init(&(*data)->write_lock, NULL);	//lock to protect the data while writing data on console
 }

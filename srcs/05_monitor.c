@@ -26,10 +26,16 @@ void    *ft_monitor_routine(void *pointer)
     while (1)
     {
         if (ft_any_philo_dead(data) == 1 || ft_check_all_ate(data) == 1)
+        {
+            pthread_mutex_lock(&data->dead_lock);
+            data->dead_flag = 1;
+            pthread_mutex_unlock(&data->dead_lock);
             break ;
+        }
+          
     }
 
-    return (pointer);   
+    return (pointer);
 }
 
 // check if any philo is dead
@@ -42,7 +48,7 @@ int     ft_any_philo_dead(t_data *data)
     {
         if (ft_philo_starved(current_philo, data->die_time) == 1)
         {
-            ft_print_msg("died",current_philo->id, current_philo);
+            ft_print_msg("has died",current_philo->id, current_philo);
             current_philo->dead = 1;
             return (1);
         }

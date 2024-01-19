@@ -70,14 +70,13 @@ void    *ft_philo_routine(void *pointer)
         ft_sleep(philo);
         ft_think(philo);
     }
-
     return (philo);
 }
 
+//checks if the philo is dead
 int     ft_philo_dead(t_philo *philo)
 {
-    if (philo->dead == 1)
+    if (philo->data->dead_flag == 1)
         return (1);
     return (0);
 }
-//checks if the philo is dead

@@ -94,3 +94,22 @@ size_t	get_current_time(void)
     }
     return time.tv_sec * 1000 + time.tv_usec / 1000;
 }
+
+void	ft_destroy_mutex(t_data *data)
+{
+	pthread_mutex_destroy(&data->dead_lock);
+	pthread_mutex_destroy(&data->write_lock);
+
+	t_philo	*philo;
+
+	philo = data->first;
+	while (1)
+    {
+		pthread_mutex_destroy(&philo->dead_lock);
+		pthread_mutex_destroy(&philo->meal_lock);
+		pthread_mutex_destroy(&philo->right_fork->fork_mutex);
+		philo = philo->next;
+		if (philo->id == data->first->id)
+			break;
+	}
+}

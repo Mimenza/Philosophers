@@ -54,10 +54,11 @@ int	main(int argc, char **argv)
 	if (ft_check_arg(argc, argv) == 1)
 		return (0);
 	ft_init_program(&data, &philo, argv);
-	ft_print_data(data);
+	//ft_print_data(data);
 	//ft_print_philos(data);
 
 	ft_init_thread(data);
 	//destroy the mutex
+	ft_destroy_mutex(data);
 	return (0);
 }
