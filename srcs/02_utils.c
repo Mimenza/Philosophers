@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 14:13:02 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/16 18:52:34 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/01/20 15:41:46 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	ft_print_philos(t_data *data)
 		ft_printf("eating %i\n", philo->eating);
 		ft_printf("sleeping %i\n",philo->sleeping);
 		ft_printf("thinking %i\n", philo->thinking);
-		ft_printf("dead %i\n", philo->dead);
 		ft_printf("prev id %i\n", philo->prev->id);
 		ft_printf("next id %i\n", philo->next->id);
 		ft_printf("left fork id %i\n", philo->left_fork->id);
@@ -98,6 +97,7 @@ size_t	get_current_time(void)
 void	ft_destroy_mutex(t_data *data)
 {
 	pthread_mutex_destroy(&data->dead_lock);
+	pthread_mutex_destroy(&data->meal_lock);
 	pthread_mutex_destroy(&data->write_lock);
 
 	t_philo	*philo;
@@ -105,8 +105,6 @@ void	ft_destroy_mutex(t_data *data)
 	philo = data->first;
 	while (1)
     {
-		pthread_mutex_destroy(&philo->dead_lock);
-		pthread_mutex_destroy(&philo->meal_lock);
 		pthread_mutex_destroy(&philo->right_fork->fork_mutex);
 		philo = philo->next;
 		if (philo->id == data->first->id)

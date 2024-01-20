@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:51:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/16 19:00:55 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/01/20 15:41:33 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,12 @@ typedef struct s_philo
 	int				eating;		//id if is eating
 	int				sleeping;	//id if is sleeping
 	int				thinking;	//id if is thinking
-	int				dead;		//id if is dead
 	int				times_eat;
 	struct s_fork	*right_fork;//right fork
 	struct s_fork	*left_fork;	//left fork
 	struct s_philo	*prev;		//pointer to the prev philo
 	struct s_philo	*next;		//pointer to the next philo
 	struct s_data	*data;		//pointer to the data struct
-	pthread_mutex_t	meal_lock;	//mutex to lock the eating of a philo
-	pthread_mutex_t	dead_lock;	//mutex to lock the dead of a philo
 	size_t			last_meal;	//saves the last meal of a philo
 }					t_philo;
 
@@ -58,7 +55,7 @@ typedef struct s_data
 	int				eat_nbr;	//the times a philo need to eat
 	int				dead_flag;	//flag to save the state if any philo died
 	pthread_mutex_t	dead_lock;	//mutex to lock the dead flag of data
-	//pthread_mutex_t	meal_lock;
+	pthread_mutex_t	meal_lock;
 	pthread_mutex_t	write_lock;	//mutex to lock the write
 }					t_data;
 

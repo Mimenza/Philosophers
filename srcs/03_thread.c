@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 19:02:34 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/16 19:13:01 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/01/20 15:44:24 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void    ft_init_thread(t_data *data)
     //join the monitor routine thread
     if (pthread_join(t_monitor, NULL) != 0)
         ft_printf("error");
-    
+                
     current_philo = data->first;
     i = 1;
     
@@ -64,19 +64,25 @@ void    *ft_philo_routine(void *pointer)
     ft_printf("philo thread created id %i\n", philo->id);
     pthread_mutex_unlock(&philo->data->write_lock);
     
+    if (philo->id % 2 == 0)
+        ft_usleep(1);
+
     while (ft_philo_dead(philo) == 0)
     {
         ft_eat(philo);
         ft_sleep(philo);
         ft_think(philo);
     }
-    return (philo);
+    return (pointer);
 }
 
 //checks if the philo is dead
 int     ft_philo_dead(t_philo *philo)
 {
+    pthread_mutex_lock(&philo->data->dead_lock);
+
     if (philo->data->dead_flag == 1)
-        return (1);
+        return (pthread_mutex_unlock(&philo->data->dead_lock), 1);
+     pthread_mutex_unlock(&philo->data->dead_lock);
     return (0);
 }

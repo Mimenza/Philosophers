@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 15:33:56 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/16 19:05:12 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/01/20 15:42:11 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	ft_init_data(t_data **data, char *philo_nbr, char *die_time, char *sleep_ti
 	if (eat_nbr)
 		(*data)->eat_nbr = ft_atoi(eat_nbr);
 	else
-		(*data)->eat_nbr = 0;
+		(*data)->eat_nbr = -1;
 	(*data)->dead_lock = dead_lock;
-	//(*data)->meal_lock = meal_lock;
+	(*data)->meal_lock = meal_lock;
 	(*data)->write_lock = write_lock;
 	(*data)->dead_flag = 0;
 
@@ -59,7 +59,6 @@ void	ft_create_philos(t_philo **philo, int id, t_data *data)
 		new->prev = last;
 	}
 	ft_init_forks(&fork, id, new, last);
-	new->dead = 0;
 	new->eating = 0;
 	new->sleeping = 0;
 	new->thinking = 0;
@@ -125,6 +124,6 @@ void	ft_init_program(t_data **data, t_philo **philo, char **argv)
 	
 	// init the mutexes
 	pthread_mutex_init(&(*data)->dead_lock, NULL);	//lock to protect the data while checking if any philo died
-	//pthread_mutex_init(&(*data)->meal_lock, NULL);	//lock to proyect the data while checking if the philo is dead (dont let that philo eat)
+	pthread_mutex_init(&(*data)->meal_lock, NULL);	//lock to proyect the data while checking if the philo is dead (dont let that philo eat)
 	pthread_mutex_init(&(*data)->write_lock, NULL);	//lock to protect the data while writing data on console
 }
