@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 14:13:02 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/20 15:41:46 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/01/21 19:32:00 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	ft_print_msg(char *str, int id, t_philo *philo)
 
 	pthread_mutex_lock(&philo->data->write_lock);
 	time = get_current_time();
-    printf("the philo %d %s time: %zu\n", id, str, time);
+    printf("%zu %d %s\n", time, id, str);
     pthread_mutex_unlock(&philo->data->write_lock);
 }
 
@@ -82,16 +82,33 @@ int	ft_usleep(size_t milliseconds)
 	return (0);
 }
 
-size_t	get_current_time(void)
-{
-	struct timeval time;
+// size_t	get_current_time(void)
+// {
+// 	struct timeval time;
 
-    if (gettimeofday(&time, NULL) == -1)
+//     if (gettimeofday(&time, NULL) == -1)
+// 	{
+//         perror("gettimeofday() error");
+//     	return 0;
+//     }
+//     return time.tv_sec * 1000 + time.tv_usec / 1000;
+// }
+
+size_t get_current_time()
+{
+    static clock_t	inicio;
+    clock_t			actual;
+
+    if (inicio == 0)
 	{
-        perror("gettimeofday() error");
-    	return 0;
+        inicio = clock();
+        return (0);
     }
-    return time.tv_sec * 1000 + time.tv_usec / 1000;
+	else
+	{
+        actual = clock();
+        return (size_t)((actual - inicio) * 1000 / CLOCKS_PER_SEC);
+    }
 }
 
 void	ft_destroy_mutex(t_data *data)

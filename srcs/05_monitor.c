@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 19:12:00 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/20 15:45:47 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/01/21 19:12:01 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void    *ft_monitor_routine(void *pointer)
     t_data  *data;
 
     data = (t_data *)pointer;
-    pthread_mutex_lock(&data->write_lock);
-    ft_printf("monitor thread created\n");
-    pthread_mutex_unlock(&data->write_lock);
+    // pthread_mutex_lock(&data->write_lock);
+    // ft_printf("monitor thread created\n");
+    // pthread_mutex_unlock(&data->write_lock);
     
     while (1)
     {
@@ -48,7 +48,7 @@ int     ft_any_philo_dead(t_data *data)
     {
         if (ft_philo_starved(current_philo, data->die_time) == 1)
         {
-            ft_print_msg("has died",current_philo->id, current_philo);
+            ft_print_msg("died",current_philo->id, current_philo);
             pthread_mutex_lock(&current_philo->data->dead_lock);
             current_philo->data->dead_flag = 1;
             pthread_mutex_unlock(&current_philo->data->dead_lock);

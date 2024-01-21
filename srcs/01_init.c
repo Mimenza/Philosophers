@@ -6,13 +6,13 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 15:33:56 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/20 15:42:11 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/01/21 19:22:35 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/philo.h"
 
-void	ft_init_data(t_data **data, char *philo_nbr, char *die_time, char *sleep_time, char *eat_time, char *eat_nbr)
+void	ft_init_data(t_data **data, char *philo_nbr, char *die_time, char *eat_time, char *sleep_time, char *eat_nbr)
 {
 	pthread_mutex_t	dead_lock;
 	pthread_mutex_t	meal_lock;

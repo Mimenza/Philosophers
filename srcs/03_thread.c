@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 19:02:34 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/20 15:44:24 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/01/21 19:02:56 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ void    *ft_philo_routine(void *pointer)
     
     philo = (t_philo *)pointer;
 
-    pthread_mutex_lock(&philo->data->write_lock);
-    ft_printf("philo thread created id %i\n", philo->id);
-    pthread_mutex_unlock(&philo->data->write_lock);
+    // pthread_mutex_lock(&philo->data->write_lock);
+    // ft_printf("philo thread created id %i\n", philo->id);
+    // pthread_mutex_unlock(&philo->data->write_lock);
     
     if (philo->id % 2 == 0)
         ft_usleep(1);
