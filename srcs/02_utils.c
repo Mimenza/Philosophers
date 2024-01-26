@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 14:13:02 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/21 19:32:00 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/01/26 09:44:14 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,53 +23,14 @@ t_philo	*ft_last_node(t_philo *philo)
 	return (philo);
 }
 
-void	ft_print_data(t_data *data)
-{
-	ft_printf("---DATA--INFO---\n");
-	ft_printf("number of philosophers %i\n", data->p_nbr);
-	ft_printf("time to die %i\n", data->die_time);
-	ft_printf("time to sleep %i\n", data->sleep_time);
-	ft_printf("time to eat %i\n", data->eat_time);
-	ft_printf("number of times each philosophers must eat %i\n", data->eat_nbr);
-	ft_printf("dead flag %i\n", data->dead_flag);
-	ft_printf("first philo id %i\n", data->first->id);
-	ft_printf("last philo id %i\n", data->last->id);
-	ft_printf("\n");
-}
-
-void	ft_print_philos(t_data *data)
-{
-	t_philo	*philo;
-
-	philo = data->first;
-	ft_printf("---PHILO--INFO---\n");
-	while (1)
-    {
-		ft_printf("-----\n");
-		ft_printf("id %i\n", philo->id);
-		ft_printf("thread\n");
-		ft_printf("eating %i\n", philo->eating);
-		ft_printf("sleeping %i\n",philo->sleeping);
-		ft_printf("thinking %i\n", philo->thinking);
-		ft_printf("prev id %i\n", philo->prev->id);
-		ft_printf("next id %i\n", philo->next->id);
-		ft_printf("left fork id %i\n", philo->left_fork->id);
-		ft_printf("right fork id %i\n", philo->right_fork->id);
-		ft_printf("-----\n");
-		philo = philo->next;
-		if (philo->id == data->first->id)
-			break;
-	}
-}
-
 void	ft_print_msg(char *str, int id, t_philo *philo)
 {
 	size_t	time;
 
 	pthread_mutex_lock(&philo->data->write_lock);
 	time = get_current_time();
-    printf("%zu %d %s\n", time, id, str);
-    pthread_mutex_unlock(&philo->data->write_lock);
+	printf("%zu %d %s\n", time, id, str);
+	pthread_mutex_unlock(&philo->data->write_lock);
 }
 
 int	ft_usleep(size_t milliseconds)
@@ -82,49 +43,41 @@ int	ft_usleep(size_t milliseconds)
 	return (0);
 }
 
-// size_t	get_current_time(void)
-// {
-// 	struct timeval time;
-
-//     if (gettimeofday(&time, NULL) == -1)
-// 	{
-//         perror("gettimeofday() error");
-//     	return 0;
-//     }
-//     return time.tv_sec * 1000 + time.tv_usec / 1000;
-// }
-
-size_t get_current_time()
+size_t	get_current_time(void)
 {
-    static clock_t	inicio;
-    clock_t			actual;
+	static clock_t	inicio;
+	clock_t			actual;
 
-    if (inicio == 0)
+	if (inicio == 0)
 	{
-        inicio = clock();
-        return (0);
-    }
+		inicio = clock();
+		return (0);
+	}
 	else
 	{
-        actual = clock();
-        return (size_t)((actual - inicio) * 1000 / CLOCKS_PER_SEC);
-    }
+		actual = clock();
+		return ((size_t)((actual - inicio) * 1000 / CLOCKS_PER_SEC));
+	}
 }
 
 void	ft_destroy_mutex(t_data *data)
 {
-	pthread_mutex_destroy(&data->dead_lock);
-	pthread_mutex_destroy(&data->meal_lock);
-	pthread_mutex_destroy(&data->write_lock);
-
 	t_philo	*philo;
+	t_philo	*next_philo;
 
 	philo = data->first;
 	while (1)
-    {
+	{
 		pthread_mutex_destroy(&philo->right_fork->fork_mutex);
-		philo = philo->next;
-		if (philo->id == data->first->id)
-			break;
+		free(&philo->right_fork);
+		next_philo = philo->next;
+		free(philo);
+		philo = next_philo;
+		if (philo == data->first)
+			break ;
 	}
+	pthread_mutex_destroy(&data->dead_lock);
+	pthread_mutex_destroy(&data->meal_lock);
+	pthread_mutex_destroy(&data->write_lock);
+	free(data);
 }

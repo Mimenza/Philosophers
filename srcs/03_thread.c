@@ -6,83 +6,65 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 19:02:34 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/21 19:02:56 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/01/26 09:59:51 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/philo.h"
 
 //create a monitor thread and thread for each philo
-void    ft_init_thread(t_data *data)
+void	ft_init_thread(t_data *data)
 {
-    pthread_t   t_monitor;
-    int         i;
-    t_philo     *current_philo; 
+	pthread_t	t_monitor;
+	int			i;
+	t_philo		*c_philo;
 
-    //create the monitor routine thread
-    if (pthread_create(&t_monitor, NULL, &ft_monitor_routine, (void *)data) != 0)
-        ft_printf("error");
-    
-    current_philo = data->first;
-    i = 1;
-    
-    //create the philosophers routine threads
-    while (i <= data->p_nbr)
-    {
-        if (pthread_create(&current_philo->thread, NULL, &ft_philo_routine, (void *)current_philo) != 0)
-            ft_printf("error");
-        current_philo = current_philo->next;
-        i++;
-    }
-    
-    //join the monitor routine thread
-    if (pthread_join(t_monitor, NULL) != 0)
-        ft_printf("error");
-                
-    current_philo = data->first;
-    i = 1;
-    
-    //join the philosphers routine threads
-    while (i <= data->p_nbr)
-    {
-        if (pthread_join(current_philo->thread, NULL) != 0)
-            ft_printf("error");
-        current_philo = current_philo->next;
-        i++;
-    }
-    
+	if (pthread_create(&t_monitor, NULL, &ft_m_routine, (void *)data) != 0)
+		return((void)ft_printf("Error creating the monitor thread\n"));
+	c_philo = data->first;
+	i = 1;
+	while (i++ <= data->p_nbr)
+	{
+		if (pthread_create(&c_philo->thread, NULL, \
+		&ft_p_routine, (void *)c_philo) != 0)
+			return((void)ft_printf("Error creating the philosopher thread\n"));
+		c_philo = c_philo->next;
+	}
+	if (pthread_join(t_monitor, NULL) != 0)
+		return((void)ft_printf("Error joining the monitor thread\n"));
+	c_philo = data->first;
+	i = 1;
+	while (i++ <= data->p_nbr)
+	{
+		if (pthread_join(c_philo->thread, NULL) != 0)
+			return((void)ft_printf("Error joining the philosopher thread\n"));
+		c_philo = c_philo->next;
+	}
 }
 
 //create the philos routine
-void    *ft_philo_routine(void *pointer)
+void	*ft_p_routine(void *pointer)
 {
-    t_philo *philo;
-    
-    philo = (t_philo *)pointer;
+	t_philo	*philo;
 
-    // pthread_mutex_lock(&philo->data->write_lock);
-    // ft_printf("philo thread created id %i\n", philo->id);
-    // pthread_mutex_unlock(&philo->data->write_lock);
-    
-    if (philo->id % 2 == 0)
-        ft_usleep(1);
-
-    while (ft_philo_dead(philo) == 0)
-    {
-        ft_eat(philo);
-        ft_sleep(philo);
-        ft_think(philo);
-    }
-    return (pointer);
+	philo = (t_philo *)pointer;
+	if (philo->id % 2 == 0)
+		ft_usleep(1);
+	while (ft_philo_dead(philo) == 0)
+	{
+		ft_eat(philo);
+		ft_sleep(philo);
+		ft_think(philo);
+	}
+	return (pointer);
 }
 
 //checks if the philo is dead
-int     ft_philo_dead(t_philo *philo)
+int	ft_philo_dead(t_philo *philo)
 {
-    pthread_mutex_lock(&philo->data->dead_lock);
-
-    if (philo->data->dead_flag == 1)
-        return (pthread_mutex_unlock(&philo->data->dead_lock), 1);
-     pthread_mutex_unlock(&philo->data->dead_lock);
-    return (0);
+	pthread_mutex_lock(&philo->data->dead_lock);
+	if (philo->data->dead_flag == 1)
+		return (pthread_mutex_unlock(&philo->data->dead_lock), 1);
+	pthread_mutex_unlock(&philo->data->dead_lock);
+	return (0);
 }

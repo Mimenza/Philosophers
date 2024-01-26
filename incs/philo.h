@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:51:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/20 15:41:33 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/01/26 09:12:51 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 typedef struct s_fork
 {
 	int				id;			//id of the fork
-	pthread_mutex_t fork_mutex; //Mutex to protect each fork
+	pthread_mutex_t	fork_mutex; //Mutex to protect each fork
 }					t_fork;
 
 typedef struct s_philo
@@ -64,7 +64,7 @@ int		ft_isnbr(char *str);
 int		ft_check_arg(int argc, char **argv);
 
 //init
-void	ft_init_data(t_data **data, char *philo_nbr, char *die_time, char *sleep_time, char *eat_time, char *eat_nbr);
+void	ft_init_data(t_data **data, char **argv);
 void	ft_create_philos(t_philo **philo, int id, t_data *data);
 void	ft_init_philos(t_data *data, t_philo **philo);
 void	ft_init_forks(t_fork **fork, int id, t_philo *new, t_philo *last);
@@ -80,18 +80,18 @@ size_t	get_current_time(void);
 void	ft_destroy_mutex(t_data *data);
 
 //thread
-void    ft_init_thread(t_data *data);
-void    *ft_philo_routine(void *pointer);
-int     ft_philo_dead(t_philo *philo);
+void	ft_init_thread(t_data *data);
+void	*ft_p_routine(void *pointer);
+int		ft_philo_dead(t_philo *philo);
 
 //monitor
-void    *ft_monitor_routine(void *pointer);
-int     ft_any_philo_dead(t_data *data);
-int     ft_check_all_ate(t_data *data);
+void	*ft_m_routine(void *pointer);
+int		ft_any_philo_dead(t_data *data);
+int		ft_check_all_ate(t_data *data);
 int		ft_philo_starved(t_philo *philo, int die_time);
 
 //actions
-void    ft_think(t_philo *philo);
-void    ft_sleep(t_philo *philo);
-void    ft_eat(t_philo *philo);
+void	ft_think(t_philo *philo);
+void	ft_sleep(t_philo *philo);
+void	ft_eat(t_philo *philo);
 #endif

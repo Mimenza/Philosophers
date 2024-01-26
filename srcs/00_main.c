@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:34:23 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/21 19:21:01 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/01/26 09:17:50 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_isnbr(char *str)
 //check all the args
 int	ft_check_arg(int argc, char **argv)
 {
-	if (ft_isnbr(argv[1]) == 1 || ft_atoi(argv[1]) == 1)
+	if (ft_isnbr(argv[1]) == 1)
 		return (ft_printf("Error [number_of_philosophers] argument\n"), 1);
 	if (ft_isnbr(argv[2]) == 1)
 		return (ft_printf("Error [time_to_die] argument\n"), 1);
@@ -48,17 +48,13 @@ int	main(int argc, char **argv)
 {
 	t_philo			*philo;
 	t_data			*data;
-	
+
 	if (argc != 5 && argc != 6)
 		return (ft_printf("Wrong number of arguments\n"), 0);
 	if (ft_check_arg(argc, argv) == 1)
 		return (0);
 	ft_init_program(&data, &philo, argv);
-	ft_print_data(data);
-	//ft_print_philos(data);
-
 	ft_init_thread(data);
-	//destroy the mutex
 	ft_destroy_mutex(data);
 	return (0);
 }
