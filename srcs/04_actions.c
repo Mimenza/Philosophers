@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 19:03:04 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/26 09:00:14 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/01/29 09:43:00 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,12 @@ void	ft_sleep(t_philo *philo)
 }
 
 // eat routine
-void	ft_eat(t_philo *philo)
+int	ft_eat(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->right_fork->fork_mutex);
 	ft_print_msg("has taken a fork", philo->id, philo);
+	if (philo->left_fork == NULL)
+		return (0);
 	pthread_mutex_lock(&philo->left_fork->fork_mutex);
 	ft_print_msg("has taken a fork", philo->id, philo);
 	philo->eating = 1;
@@ -44,4 +46,5 @@ void	ft_eat(t_philo *philo)
 	philo->times_eat += 1;
 	pthread_mutex_unlock(&philo->left_fork->fork_mutex);
 	pthread_mutex_unlock(&philo->right_fork->fork_mutex);
+	return (1);
 }

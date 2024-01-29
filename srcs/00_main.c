@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:34:23 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/26 09:17:50 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/01/29 09:18:08 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int	main(int argc, char **argv)
 	t_philo			*philo;
 	t_data			*data;
 
+	philo = NULL;
+	data = NULL;
 	if (argc != 5 && argc != 6)
 		return (ft_printf("Wrong number of arguments\n"), 0);
 	if (ft_check_arg(argc, argv) == 1)

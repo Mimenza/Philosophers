@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 14:13:02 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/26 09:44:14 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/01/29 10:01:58 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ void	ft_destroy_mutex(t_data *data)
 	while (1)
 	{
 		pthread_mutex_destroy(&philo->right_fork->fork_mutex);
-		free(&philo->right_fork);
+		if (philo->right_fork)
+			free (philo->right_fork);
 		next_philo = philo->next;
 		free(philo);
 		philo = next_philo;

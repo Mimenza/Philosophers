@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 15:33:56 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/26 09:12:08 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/01/29 09:34:57 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void	ft_create_philos(t_philo **philo, int id, t_data *data)
 	new->id = id;
 	new->times_eat = 0;
 	new->data = data;
-	new->last_meal = get_current_time();
 }
 
 void	ft_init_philos(t_data *data, t_philo **philo)
@@ -88,7 +87,8 @@ void	ft_init_philos(t_data *data, t_philo **philo)
 		last_p = ft_last_node(*philo);
 		last_p->next = first_p;
 		first_p->prev = last_p;
-		first_p->left_fork = last_p->right_fork;
+		if (data->p_nbr != 1)
+			first_p->left_fork = last_p->right_fork;
 		data->first = first_p;
 		data->last = last_p;
 	}
@@ -105,10 +105,13 @@ void	ft_init_forks(t_fork **fork, int id, t_philo *new, t_philo *last)
 	(*fork)->fork_mutex = fork_lock;
 	pthread_mutex_init(&(*fork)->fork_mutex, NULL);
 	if (id == 1)
+	{
 		new->left_fork = NULL;
+	}
 	else
 		new->left_fork = last->right_fork;
 	new->right_fork = (*fork);
+	new->last_meal = get_current_time();
 }
 
 void	ft_init_program(t_data **data, t_philo **philo, char **argv)

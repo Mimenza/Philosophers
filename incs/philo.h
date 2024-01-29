@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:51:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/26 09:12:51 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/01/29 09:43:41 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,5 @@ int		ft_philo_starved(t_philo *philo, int die_time);
 //actions
 void	ft_think(t_philo *philo);
 void	ft_sleep(t_philo *philo);
-void	ft_eat(t_philo *philo);
+int		ft_eat(t_philo *philo);
 #endif
