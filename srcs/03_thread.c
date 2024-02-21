@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 19:02:34 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/29 10:08:43 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/02/21 20:40:45 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,24 @@ void	ft_init_thread(t_data *data)
 	t_philo		*c_philo;
 
 	if (pthread_create(&t_monitor, NULL, &ft_m_routine, (void *)data) != 0)
-		return ((void)ft_printf("Error creating the monitor thread\n"));
+		return ((void)printf("Error creating the monitor thread\n"));
 	c_philo = data->first;
 	i = 1;
 	while (i++ <= data->p_nbr)
 	{
 		if (pthread_create(&c_philo->thread, NULL, \
 		&ft_p_routine, (void *)c_philo) != 0)
-			return ((void)ft_printf("Error creating the philosopher thread\n"));
+			return ((void)printf("Error creating the philosopher thread\n"));
 		c_philo = c_philo->next;
 	}
 	if (pthread_join(t_monitor, NULL) != 0)
-		return ((void)ft_printf("Error joining the monitor thread\n"));
+		return ((void)printf("Error joining the monitor thread\n"));
 	c_philo = data->first;
 	i = 1;
 	while (i++ <= data->p_nbr)
 	{
 		if (pthread_join(c_philo->thread, NULL) != 0)
-			return ((void)ft_printf("Error joining the philosopher thread\n"));
+			return ((void)printf("Error joining the philosopher thread\n"));
 		c_philo = c_philo->next;
 	}
 }

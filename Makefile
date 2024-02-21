@@ -6,7 +6,7 @@
 #    By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/09 11:51:45 by emimenza          #+#    #+#              #
-#    Updated: 2024/01/13 13:24:12 by emimenza         ###   ########.fr        #
+#    Updated: 2024/02/21 20:48:01 by emimenza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,12 +33,6 @@ OBJ			=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 LIBFT		=	libs/Libft
 PRINTF		=	libs/ft_printf
 
-#Librerias 
-LIBS		= $(PRINTF)/libftprintf.a $(LIBFT)/libft.a 
-
-# Header Files (dedicated and from libraries):
-HEADERS		= $(PRINTF)/ft_printf.h $(LIBFT)/libft.h $(INC)/push_swap.h
-
 #Directorios
 SRC_DIR = srcs/
 OBJ_DIR = objs/
@@ -46,11 +40,11 @@ OBJF = objs
 INC = incs
 
 # REGLAS # 
-all:	printf libft $(NAME)
+all: $(NAME)
 
 #Compilar 
 $(NAME):$(OBJ)
-		@$(CC) $(OBJ) $(LIBS) -o $(NAME)
+		@$(CC) $(OBJ) -o $(NAME)
 		@echo "$(GREEN)PHILOSOPHERS HAS BEEN COMPILED!$(NC)"
 
 # Compilar objetos individualmente y crear carpeta objs
@@ -64,35 +58,13 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 # $@ : The file name of the target of the rule. If the target is an archive member, then ‘$@’ is the name of the archive file.
 # $< : The name of the first prerequisite.
 
-#compilar librerias individuales
-libft:
-	@echo "$(YELLOW)COMPILING LIBFT...$(NC)"
-	@$(MAKE) -C ./$(LIBFT)
-	@echo "$(GREEN)LIBFT HAS BEEN COMPILED$(NC)"
-
-printf:
-	@echo "$(YELLOW)COMPILING FT_PRINTF...$(NC)"
-	@$(MAKE) -C ./$(PRINTF)
-	@echo "$(GREEN)FT_PRINTF HAS BEEN COMPILED$(NC)"
-
-# Eliminar tmp ft_printf
-fclean_printf:
-	@make fclean -C ./$(PRINTF)
-	@echo "$(RED)PRINTF FULL CLEANED!$(NC)"
-
-# Eliminar tmp libft
-fclean_libft:
-	@make fclean -C ./$(LIBFT)
-	@echo "$(RED)LIBFT FULL CLEANED!$(NC)"
-
-
 # Eliminar temporales
 clean:
 	@$(RM) -r $(OBJ_DIR)
 	@echo "$(RED)OBJS AND DIRECTORY CLEANED!$(NC)"
 
 # Eliminar temporales y ejecutable fclean_mlx
-fclean: clean  fclean_libft fclean_printf
+fclean: clean
 	@$(RM) $(NAME)
 	@echo "$(RED)EXECUTABLE CLEANED!$(NC)"
 

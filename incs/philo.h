@@ -6,15 +6,13 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:51:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/01/29 09:43:41 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/02/21 20:48:22 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-# include "../libs/ft_printf/ft_printf.h"
-# include "../libs/Libft/libft.h"
 # include <pthread.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -62,7 +60,7 @@ typedef struct s_data
 //main
 int		ft_isnbr(char *str);
 int		ft_check_arg(int argc, char **argv);
-
+int		ft_atoi(const char *str);
 //init
 void	ft_init_data(t_data **data, char **argv);
 void	ft_create_philos(t_philo **philo, int id, t_data *data);
