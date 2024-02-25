@@ -6,13 +6,12 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:34:23 by emimenza          #+#    #+#             */
-/*   Updated: 2024/02/24 23:01:41 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/02/25 18:21:05 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//FALTA 
+//FALTA :
 //LIBERAR MEMORIA DE LOS PHILOS
-//SEG FAULT CON PHILO NBR = 0
 
 #include "../incs/philo.h"
 
@@ -36,7 +35,7 @@ void	ft_init_data(t_data **data, char **argv)
 	return ;
 }
 
-//Inits the philo structure
+//Creates the philo structure
 void	ft_create_philos(t_philo **philo, int id, t_data *data)
 {
 	t_philo			*new;
@@ -66,6 +65,7 @@ void	ft_create_philos(t_philo **philo, int id, t_data *data)
 	pthread_mutex_init(new->right_fork, NULL);
 }
 
+//Inits the philo structure
 void	ft_init_philos(t_data *data, t_philo **philo)
 {
 	int		id;

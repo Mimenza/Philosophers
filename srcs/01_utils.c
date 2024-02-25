@@ -6,12 +6,13 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 15:33:56 by emimenza          #+#    #+#             */
-/*   Updated: 2024/02/24 22:58:14 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/02/25 18:22:03 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/philo.h"
 
+//Returs the last node of the list
 t_philo	*ft_last_node(t_philo *philo)
 {
 	while (philo)
@@ -23,23 +24,33 @@ t_philo	*ft_last_node(t_philo *philo)
 	return (philo);
 }
 
-int	get_time(t_data *data)
+//Custom usleep function
+void ft_usleep(int time)
 {
-	struct timeval	tv;
+    struct timeval start_time, end_time, current_time;
+    long time_left;
 
-	gettimeofday(&tv, NULL);
-	return (((tv.tv_sec * 1000) + (tv.tv_usec / 1000)));
+    gettimeofday(&start_time, NULL);
+    end_time.tv_sec = start_time.tv_sec + (time / 1000);
+    end_time.tv_usec = start_time.tv_usec + ((time % 1000) * 1000);
+
+    if (end_time.tv_usec >= 1000000)
+    {
+        end_time.tv_sec += end_time.tv_usec / 1000000;
+        end_time.tv_usec %= 1000000;
+    }
+
+    while (1)
+    {
+        gettimeofday(&current_time, NULL);
+        time_left = (end_time.tv_sec - current_time.tv_sec) * 1000000 + (end_time.tv_usec - current_time.tv_usec);
+        if (time_left <= 0)
+            break;
+        usleep(time_left);
+    }
 }
 
-void	ft_usleep(int time)
-{
-	long start;
-
-	start = get_time(NULL);
-	while (get_time(NULL) < start + time)
-		usleep(10);
-}
-
+//Returns the current time 
 size_t	get_current_time(void)
 {
 	static clock_t	inicio;
@@ -57,6 +68,7 @@ size_t	get_current_time(void)
 	}
 }
 
+//Atoi function
 int	ft_atoi(const char *str)
 {
 	int	number;
@@ -80,6 +92,7 @@ int	ft_atoi(const char *str)
 	return (number * sign);
 }
 
+//Checks the input file
 int	check_input(char **av)
 {
 	int	i;

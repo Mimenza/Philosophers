@@ -6,10 +6,9 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 14:13:02 by emimenza          #+#    #+#             */
-/*   Updated: 2024/02/24 22:58:51 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/02/25 18:04:11 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../incs/philo.h"
 
@@ -25,27 +24,27 @@ void    ft_print_msg(char *msg, t_philo *philo)
 //Aux philo routine
 int    ft_routine(t_philo *philo)
 {
-    pthread_mutex_lock(&philo->data->lock);            
+    pthread_mutex_lock(&philo->data->lock);
     pthread_mutex_unlock(&philo->data->lock);
     if (philo->id % 2 == 0)
         usleep(1000);
     pthread_mutex_lock(philo->right_fork);
     ft_print_msg("has taken a fork", philo);
     if (philo->left_fork == NULL)
-        return (pthread_mutex_unlock(philo->right_fork), 0);   
+        return (pthread_mutex_unlock(philo->right_fork), 0);
     pthread_mutex_lock(philo->left_fork);        
-    ft_print_msg("has taken a fork", philo);   
-    philo->last_meal = get_current_time();        
+    ft_print_msg("has taken a fork", philo);      
+    ft_print_msg("is eating", philo);  
+    ft_usleep(philo->data->eat_time);
+    philo->last_meal = get_current_time();      
     philo->times_eat++;
-    ft_print_msg("is eating", philo);    
-    ft_usleep(philo->data->eat_time);    
     pthread_mutex_unlock(philo->right_fork);
-    pthread_mutex_unlock(philo->left_fork);        
+    pthread_mutex_unlock(philo->left_fork);
     usleep(2000);
-    ft_print_msg("is sleeping", philo);    
-    ft_usleep(philo->data->sleep_time);    
-    if (philo->data->eat_nbr == -1 || philo->times_eat != philo->data->eat_nbr)
-        ft_print_msg("is thinking", philo);
+    ft_print_msg("is sleeping", philo);
+    ft_usleep(philo->data->sleep_time);
+    // if (philo->data->eat_nbr == -1 || philo->times_eat != philo->data->eat_nbr)
+    ft_print_msg("is thinking", philo);
     return (1);
 }
 
@@ -63,7 +62,7 @@ int	ft_check_dead(t_data *data)
     {
         if(((get_current_time() - c_philo->last_meal) > data->die_time) || ((c_philo->last_meal == 0) && (get_current_time() > data->die_time)))
         {
-            pthread_mutex_lock(&data->lock);
+            // pthread_mutex_lock(&data->lock);
             ft_print_msg("died", c_philo);
             data->dead_flag = 1;            
             return (1);
@@ -82,7 +81,7 @@ int	ft_check_dead(t_data *data)
 void    *ft_philo_routine(void *data)
 {
     t_philo *philo;
-
+    
     philo = (t_philo *)data;
     while (1)
     {            

@@ -6,7 +6,7 @@
 #    By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/09 11:51:45 by emimenza          #+#    #+#              #
-#    Updated: 2024/02/24 23:00:03 by emimenza         ###   ########.fr        #
+#    Updated: 2024/02/25 17:46:39 by emimenza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,9 +20,9 @@ NC = \033[0m # No color (reiniciar)
 #Comandos
 DEL			=	rm -f
 CC			=	gcc
-CCFLAGS		=	-Wall -Wextra -Werror -pthread -0 -g3 #-fsanitize=address
+CCFLAGS		=	-Wall -Wextra -Werror  #-03 -pthread  #-g3 -fsanitize=address
 
-# SANITIZER = -fsanitize=thread
+# SANITIZER = --tool=helgring
 
 #Nombre ejecutable
 NAME		=	philo
