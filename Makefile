@@ -6,7 +6,7 @@
 #    By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/09 11:51:45 by emimenza          #+#    #+#              #
-#    Updated: 2024/02/25 17:46:39 by emimenza         ###   ########.fr        #
+#    Updated: 2024/03/06 20:57:51 by emimenza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,9 +20,7 @@ NC = \033[0m # No color (reiniciar)
 #Comandos
 DEL			=	rm -f
 CC			=	gcc
-CCFLAGS		=	-Wall -Wextra -Werror  #-03 -pthread  #-g3 -fsanitize=address
-
-# SANITIZER = --tool=helgring
+CCFLAGS		=	-Wall -Wextra -Werror  -03 -pthread  -g3 -fsanitize=threads
 
 #Nombre ejecutable
 NAME		=	philo
@@ -43,7 +41,7 @@ all: $(NAME)
 
 #Compilar 
 $(NAME):$(OBJ)
-		@$(CC) $(OBJ) -o $(NAME) $(SANITIZER)
+		@$(CC) $(OBJ) -o $(NAME)
 		@echo "$(GREEN)PHILOSOPHERS HAS BEEN COMPILED!$(NC)"
 
 # Compilar objetos individualmente y crear carpeta objs

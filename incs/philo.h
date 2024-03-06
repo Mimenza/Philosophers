@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:51:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/02/24 22:56:35 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/03/06 20:51:26 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_philo
 	pthread_mutex_t	*left_fork;	//left fork
 	struct s_philo	*next;		//pointer to the next philo
 	struct s_philo	*prev;		//pointer to the prev philo
-	struct s_data	*data;		//pointer to the data struct	
+	struct s_data	*data;		//pointer to the data struct
 }					t_philo;
 
 typedef struct s_data
@@ -52,6 +52,6 @@ int	check_input(char **av);
 size_t	get_current_time(void);
 void    ft_start_program(t_data *data);
 void	ft_usleep(int time);
-void	ft_destroy_mutex(t_data *data);
+void	ft_destroy_mutex(t_data **data);
 
 #endif

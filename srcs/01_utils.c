@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 15:33:56 by emimenza          #+#    #+#             */
-/*   Updated: 2024/02/25 18:22:03 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/03/06 20:49:59 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,11 @@ void ft_usleep(int time)
     struct timeval start_time, end_time, current_time;
     long time_left;
 
+
     gettimeofday(&start_time, NULL);
-    end_time.tv_sec = start_time.tv_sec + (time / 1000);
-    end_time.tv_usec = start_time.tv_usec + ((time % 1000) * 1000);
+	time -= 3;
+    end_time.tv_sec = start_time.tv_sec + ((time)/ 1000);
+    end_time.tv_usec = start_time.tv_usec + (((time)% 1000) * 1000);
 
     if (end_time.tv_usec >= 1000000)
     {
@@ -50,22 +52,21 @@ void ft_usleep(int time)
     }
 }
 
-//Returns the current time 
-size_t	get_current_time(void)
+size_t get_current_time(void)
 {
-	static clock_t	inicio;
-	clock_t			actual;
+    static struct timeval start_time = {0, 0};
+    struct timeval current_time;
 
-	if (inicio == 0)
-	{
-		inicio = clock();
-		return (0);
-	}
-	else
-	{
-		actual = clock();
-		return ((size_t)((actual - inicio) * 1000 / CLOCKS_PER_SEC));
-	}
+    if (start_time.tv_sec == 0 && start_time.tv_usec == 0)
+    {
+        gettimeofday(&start_time, NULL);
+        return 0;
+    }
+    else
+    {
+        gettimeofday(&current_time, NULL);
+        return ((current_time.tv_sec - start_time.tv_sec) * 1000) + ((current_time.tv_usec - start_time.tv_usec) / 1000);
+    }
 }
 
 //Atoi function

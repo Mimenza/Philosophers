@@ -6,12 +6,11 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:34:23 by emimenza          #+#    #+#             */
-/*   Updated: 2024/02/25 18:21:05 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/03/06 20:55:33 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //FALTA :
-//LIBERAR MEMORIA DE LOS PHILOS
 
 #include "../incs/philo.h"
 
@@ -116,6 +115,6 @@ int	main(int argc, char **argv)
 		return (printf("Too many philosophers"), 0);
 	ft_init_program(&data, &philo, argv);
 	ft_start_program(data);
-	ft_destroy_mutex(data);
+	ft_destroy_mutex(&data);
 	return (0);
 }
