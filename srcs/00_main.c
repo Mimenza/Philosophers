@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:34:23 by emimenza          #+#    #+#             */
-/*   Updated: 2024/03/06 20:55:33 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/03/07 09:56:38 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ void	ft_create_philos(t_philo **philo, int id, t_data *data)
 	if (*philo == NULL)
 	{
 		*philo = new;
-		new->prev=NULL;
+		new->prev = NULL;
 		new->left_fork = NULL;
 	}
 	else
 	{
 		last = ft_last_node(*philo);
-		last->next = new;				
+		last->next = new;
 		new->prev = last;
 		new->left_fork = last->right_fork;
 	}
@@ -104,7 +104,7 @@ int	main(int argc, char **argv)
 {
 	t_data	*data;
 	t_philo	*philo;
-	
+
 	data = NULL;
 	philo = NULL;
 	if (argc < 5 || argc > 6)

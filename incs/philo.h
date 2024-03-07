@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:51:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/03/06 20:51:26 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/03/07 10:04:46 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ typedef struct s_philo
 {
 	int				id;			//id of the philo
 	pthread_t		thread;		//thread of the philo
-	int				times_eat;  //times the philo has eaten
-    size_t			last_meal;	//saves the last meal of a philo
+	int				times_eat;	//times the philo has eaten
+	size_t			last_meal;	//saves the last meal of a philo
 	pthread_mutex_t	*right_fork;//right fork
 	pthread_mutex_t	*left_fork;	//left fork
 	struct s_philo	*next;		//pointer to the next philo
@@ -46,11 +46,11 @@ typedef struct s_data
 	pthread_mutex_t	lock;	//mutex to lock the dead flag of data
 }					t_data;
 
-int	ft_atoi(const char *str);
+int		ft_atoi(const char *str);
 t_philo	*ft_last_node(t_philo *philo);
-int	check_input(char **av);
+int		check_input(char **av);
 size_t	get_current_time(void);
-void    ft_start_program(t_data *data);
+void	ft_start_program(t_data *data);
 void	ft_usleep(int time);
 void	ft_destroy_mutex(t_data **data);
 
