@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:51:08 by emimenza          #+#    #+#             */
-/*   Updated: 2024/03/07 10:04:46 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/03/07 15:13:04 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_data
 	int				eat_nbr;	//the times a philo need to eat
 	int				dead_flag;	//flag to save the state if any philo died
 	int				start_flag;	//flag to check if all the thread had been init
-	pthread_mutex_t	lock;	//mutex to lock the dead flag of data
+	pthread_mutex_t	lock;		//mutex to lock the dead flag of data
 }					t_data;
 
 int		ft_atoi(const char *str);

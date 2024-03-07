@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 15:33:56 by emimenza          #+#    #+#             */
-/*   Updated: 2024/03/07 10:05:34 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/03/07 15:36:13 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_usleep(int time)
 	long			time_left;
 
 	gettimeofday(&start_time, NULL);
-	time -= 3;
+	time -= 5;
 	end_time.tv_sec = start_time.tv_sec + ((time) / 1000);
 	end_time.tv_usec = start_time.tv_usec + (((time) % 1000) * 1000);
 	if (end_time.tv_usec >= 1000000)

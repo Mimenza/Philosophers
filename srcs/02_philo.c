@@ -6,7 +6,7 @@
 /*   By: emimenza <emimenza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 14:13:02 by emimenza          #+#    #+#             */
-/*   Updated: 2024/03/07 10:06:01 by emimenza         ###   ########.fr       */
+/*   Updated: 2024/03/07 15:47:39 by emimenza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ int	ft_routine(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->lock);
 	pthread_mutex_unlock(&philo->data->lock);
-	if (philo->id % 2 == 0)
-		usleep(1000);
 	pthread_mutex_lock(philo->right_fork);
 	ft_print_msg("has taken a fork", philo);
 	if (philo->left_fork == NULL)
@@ -40,7 +38,6 @@ int	ft_routine(t_philo *philo)
 	philo->times_eat++;
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
-	usleep(2000);
 	ft_print_msg("is sleeping", philo);
 	ft_usleep(philo->data->sleep_time);
 	ft_print_msg("is thinking", philo);
@@ -82,13 +79,14 @@ void	*ft_philo_routine(void *data)
 	t_philo	*philo;
 
 	philo = (t_philo *)data;
+	if (philo->id % 2 == 0)
+		usleep(1000);
 	while (1)
 	{
 		if ((philo->data->dead_flag == 0 && philo->data->start_flag == 1) && \
 		(philo->times_eat < philo->data->eat_nbr || philo->data->eat_nbr == -1))
 			if (ft_routine(philo) == 0)
 				return (0);
-		usleep(1000);
 		if (philo->data->dead_flag == 1)
 			return (0);
 	}
